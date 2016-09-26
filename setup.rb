@@ -41,28 +41,36 @@ class Build
     end
 
     # Turn on PHP-FPM for nginx, or enable the right module for Apache
-    if settings["php"] == 7
-      if settings["nginx"] ||= false
-          config.vm.provision "shell", inline: "sudo service php5-fpm stop && sudo service php7-fpm restart"
-      else
-          config.vm.provision "shell", inline: "sudo a2dismod php5 && sudo a2enmod php7"
-      end
-    else
-      if settings["nginx"] ||= false
-          config.vm.provision "shell", inline: "sudo service php7-fpm stop && sudo service php5-fpm restart"
-      else
-          config.vm.provision "shell", inline: "sudo a2dismod php7 && sudo a2enmod php5"
-      end
-    end
+    #if settings["php"] == 7
+      config.vm.provision "shell", inline: "sudo service php5-fpm stop && sudo service php7-fpm restart"
+      config.vm.provision "shell", inline: "sudo a2dismod php5 && sudo a2enmod php7"
+      #if settings["nginx"] ||= false
+      #    config.vm.provision "shell", inline: "sudo service php5-fpm stop && sudo service php7-fpm restart"
+      #else
+      #    config.vm.provision "shell", inline: "sudo a2dismod php5 && sudo a2enmod php7"
+      #end
+    #else
+      #if settings["nginx"] ||= false
+      #    config.vm.provision "shell", inline: "sudo service php7-fpm stop && sudo service php5-fpm restart"
+      #else
+      #    config.vm.provision "shell", inline: "sudo a2dismod php7 && sudo a2enmod php5"
+      #end
+    #end
 
     # Turn on the proper server
     config.vm.provision "shell" do |s|
-        if settings["nginx"] ||= false
-          s.inline = "sudo apachectl stop && sudo service nginx restart"
-        else
-          s.inline = "sudo service nginx stop && sudo apachectl restart"
-        end
+    	s.inline = "sudo service nginx stop && sudo apachectl restart"
+        #if settings["nginx"] ||= false
+        #  s.inline = "sudo apachectl stop && sudo service nginx restart"
+        #else
+        #  s.inline = "sudo service nginx stop && sudo apachectl restart"
+        #end
     end
+
+    # Install composer
+    #config.vm.provision "shell", inline: "curl -Ss https://getcomposer.org/installer | php > /dev/null && sudo mv composer.phar /usr/bin/composer"
+    # Install dependencies
+    #config.vm.provision "shell", inline: "cd /var/www/html/ && php composer.phar install"
 
   end
 end
