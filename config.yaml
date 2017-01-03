@@ -10,6 +10,12 @@ folders:
     - map: asanastatic
       to: /var/www/html
       type: nfs
+    - map: database
+      to: /srv/database
+      type: nfs
+    - map: cert
+      to: /var/www/cert
+      type: nfs
 
 # PHP options: 5 (uses 5.6) or 7
 php: 7
@@ -17,6 +23,7 @@ php: 7
 # Uses nginx + PHP-FPM. If set to false, uses Apache.
 nginx: false
 
-# ports:
-#     - guest: 80
-#       host: 8000
+ports:
+    - guest: 80 
+      host: 3000
+

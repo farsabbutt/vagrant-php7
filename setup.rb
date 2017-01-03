@@ -22,12 +22,14 @@ class Build
     end
 
     # Configure Port Forwarding To The Box
-    config.vm.network "forwarded_port", guest: 80, host: 8000
+    config.vm.network "forwarded_port", guest: 80, host: 3000
     config.vm.network "forwarded_port", guest: 443, host: 44300
     config.vm.network "forwarded_port", guest: 3306, host: 33060
 
     # Add Custom Ports From Configuration
     if settings.has_key?("ports")
+      print "###"
+      print settings["ports"]
       settings["ports"].each do |port|
         config.vm.network "forwarded_port", guest: port["guest"], host: port["host"], protocol: port["protocol"] ||= "tcp"
       end
@@ -74,7 +76,8 @@ class Build
 
     # Turn on the proper server
     config.vm.provision "shell" do |s|
-    	s.inline = "sudo service nginx stop && sudo service apache2 restart"
+#	s.inline = "% echo 'Listen 3000' | sudo tee -a /etc/apache2/ports.conf"
+	s.inline = "sudo service nginx stop && sudo service apache2 restart"
         #if settings["nginx"] ||= false
         #  s.inline = "sudo apachectl stop && sudo service nginx restart"
         #else
