@@ -61,7 +61,8 @@ class Build
     # Turn on PHP-FPM for nginx, or enable the right module for Apache
     #if settings["php"] == 7
       config.vm.provision "shell", inline: "sudo service php5-fpm stop && sudo service php7-fpm restart"
-      config.vm.provision "shell", inline: "sudo a2dismod php5 && sudo a2enmod php7"
+      config.vm.provision "shell", inline: "sudo a2dismod php5 && sudo a2enmod php7 sudo a2enmod ssl"
+      config.vm.provision "shell", inline: "sudo ln -s /etc/apache2/sites-available/default-ssl.conf /etc/apache2/sites-enabled/default-ssl.conf"
       #if settings["nginx"] ||= false
       #    config.vm.provision "shell", inline: "sudo service php5-fpm stop && sudo service php7-fpm restart"
       #else
