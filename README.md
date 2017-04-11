@@ -38,3 +38,22 @@ SSH Password: vagrant
 SSH Key: ~/.vagrant.d/insecure_private_key (this may be different depending on your environment)
 SSH Port: 2222
 ```
+
+## Install TLS
+[Adding SSL to local.dev](https://www.njimedia.com/local-development-with-ssl-tls-p2/)
+
+`mkdir cert; cd cert`
+
+`openssl req -new -newkey rsa:2048 -nodes -keyout domain_dev.key -out domain_dev.csr`
+
+`openssl x509 -req -days 365 -in domain_dev.csr -signkey domain_dev.key -out domain_dev.crt`
+
+`vagrant up && vagrant ssh`
+
+`vi /etc/apache2/sites-enabled/default-ssl.conf`
+
+Modify these lines in .conf
+```
+SSLCertificateFile      /var/www/cert/domain_dev.crt
+SSLCertificateKeyFile   /var/www/cert/domain_dev.key
+```
