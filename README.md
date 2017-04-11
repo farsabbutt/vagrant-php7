@@ -36,7 +36,7 @@ SSH IP: {your-ip}
 SSH User: vagrant
 SSH Password: vagrant
 SSH Key: ~/.vagrant.d/insecure_private_key (this may be different depending on your environment)
-SSH Port: 2222
+SSH Port: 2227 (the default is 2222)
 ```
 
 ## Install TLS
