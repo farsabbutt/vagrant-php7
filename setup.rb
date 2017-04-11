@@ -23,8 +23,10 @@ class Build
 
     # Configure Port Forwarding To The Box
     config.vm.network "forwarded_port", guest: 80, host: 3000
-    config.vm.network "forwarded_port", guest: 443, host: 44300
+    config.vm.network "forwarded_port", guest: 443, host: 3000 #44300
     config.vm.network "forwarded_port", guest: 3306, host: 33060
+    # fix port collision with other vagrant vms running on default 2222
+    config.vm.network :forwarded_port, guest: 22, host: 2227
 
     # Add Custom Ports From Configuration
     if settings.has_key?("ports")
