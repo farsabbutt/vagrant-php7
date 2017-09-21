@@ -80,7 +80,7 @@ class Build
     # Turn on the proper server
     config.vm.provision "shell" do |s|
 #	s.inline = "% echo 'Listen 3000' | sudo tee -a /etc/apache2/ports.conf"
-	s.inline = "sudo service nginx stop && sudo service apache2 restart"
+	s.inline = "sudo service nginx stop && sudo apachectl start"
         #if settings["nginx"] ||= false
         #  s.inline = "sudo apachectl stop && sudo service nginx restart"
         #else
@@ -91,7 +91,7 @@ class Build
     # Always start MySQL on boot, even when not running the full provisioner
     config.vm.provision :shell, inline: "sudo service mysql restart", run: "always"
     config.vm.provision :shell, inline: "sudo service nginx stop", run: "always"
-    config.vm.provision :shell, inline: "sudo service apache2 restart", run: "always"
+    config.vm.provision :shell, inline: "sudo apachectl restart", run: "always"
     
     # Install composer
     #config.vm.provision "shell", inline: "curl -Ss https://getcomposer.org/installer | php > /dev/null && sudo mv composer.phar /usr/bin/composer"
