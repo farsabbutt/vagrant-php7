@@ -43,7 +43,7 @@ class Build
         config.vm.synced_folder folder["map"], folder["to"], type: folder["type"] ||= nil
       end
     end
- 
+
     # If a database directory exists in the same directory as your Vagrantfile,
     # a mapped directory inside the VM will be created that contains these files.
     # This directory is used to maintain default database scripts as well as backed
@@ -63,7 +63,7 @@ class Build
     # Turn on PHP-FPM for nginx, or enable the right module for Apache
     #if settings["php"] == 7
       config.vm.provision "shell", inline: "sudo service php5-fpm stop && sudo service php7-fpm restart"
-      config.vm.provision "shell", inline: "sudo a2dismod php5 && sudo a2enmod php7 sudo a2enmod ssl"
+      config.vm.provision "shell", inline: "sudo a2dismod php5 && sudo a2enmod php7 && sudo a2enmod ssl"
       config.vm.provision "shell", inline: "sudo ln -s /etc/apache2/sites-available/default-ssl.conf /etc/apache2/sites-enabled/default-ssl.conf"
       #if settings["nginx"] ||= false
       #    config.vm.provision "shell", inline: "sudo service php5-fpm stop && sudo service php7-fpm restart"
@@ -87,18 +87,18 @@ class Build
         #  s.inline = "sudo service nginx stop && sudo apachectl restart"
         #end
     end
- 
+
     # Always start MySQL on boot, even when not running the full provisioner
     config.vm.provision :shell, inline: "sudo service mysql restart", run: "always"
     config.vm.provision :shell, inline: "sudo service nginx stop", run: "always"
     config.vm.provision :shell, inline: "sudo apache2ctl restart", run: "always"
-    
+
     # Install composer
     #config.vm.provision "shell", inline: "curl -Ss https://getcomposer.org/installer | php > /dev/null && sudo mv composer.phar /usr/bin/composer"
     # Install dependencies
     #config.vm.provision "shell", inline: "cd /var/www/html/ && php composer.phar install"
-    
-    # Import mysql dbs via script 
+
+    # Import mysql dbs via script
 #
 # FIX MEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE
 #
