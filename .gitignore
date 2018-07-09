@@ -2,4 +2,7 @@
 .idea
 .DS_Store
 asanastatic/
+
+# Ignore any generated certs, but track the configuration file
 cert/*
+!cert/*.conf
