@@ -23,6 +23,18 @@ Map the folders you'd like to sync with Vagrant in the `config.yaml` file. By de
 
 Run `vagrant up`. That's all.
 
+## Using for another project
+If you would like to use this Vagrant configuration for another project (as Asanapedia currently does), you can do so by updating the `config.yaml` file in the root of this project: 
+
+```
+folders:
+    - map: [FOLDER NAME HERE]
+      to: /var/www/html
+      type: nfs
+```
+
+Replace `[FOLDER NAME HERE]` with whatever directory you would like Vagrant to to use as the working directory. 
+
 ## MySQL
 You can access the MySQL instance through SSH, credentials as follows:
 
